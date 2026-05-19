@@ -26,7 +26,6 @@ The CRISP-DM framework was used throughout the project for data understanding, p
 ## Repository Structure
 
 - `README.md` → Project documentation
-- `data/` → FutureLearn CSV datasets
 - `munge/` → R preprocessing scripts
 - `config/` → ProjectTemplate configuration files
 - `reports/` → Analysis reports and R Markdown files
