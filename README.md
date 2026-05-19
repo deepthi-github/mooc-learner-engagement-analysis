@@ -1,39 +1,61 @@
-# FinalProjectTemplate
+# Cyber Security Course Analysis Report
 
-Welcome to ProjectTemplate!
+## Research Questions
 
-This file introduces you to ProjectTemplate, but you should eventually replace
-the contents of this file with an introduction to your project. People who
-work with your data in the future will thank you for it, including your future
-self.
+- How does the number of people un-enrolling vary across the weeks of the course?
+- Where can changes or interventions be implemented to decrease the un-enrollment rate at key points in the course?
 
-ProjectTemplate is an R package that helps you organize your statistical
-analysis projects. Since you're reading this file, we'll assume that you've
-already called `create.project()` to set up this project and all of its
-contents.
+---
 
-To load your new project, you'll first need to `setwd()` into the directory
-where this README file is located. Then you need to run the following two
-lines of R code:
+## Overview
 
-	library('ProjectTemplate')
-	load.project()
+This project provides an in-depth analysis of a massive open online course (MOOC) titled **Cyber Security: Safety At Home, Online, and in Life**, created by Newcastle University and delivered through FutureLearn.
 
-After you enter the second line of code, you'll see a series of automated
-messages as ProjectTemplate goes about doing its work. This work involves:
-* Reading in the global configuration file contained in `config`.
-* Loading any R packages you listed in the configuration file.
-* Reading in any datasets stored in `data` or `cache`.
-* Preprocessing your data using the files in the `munge` directory.
+The analysis investigates learner engagement, un-enrollment patterns, course activity, and video engagement data to identify key factors affecting learner retention.
 
-Once that's done, you can execute any code you'd like. For every analysis
-you create, we'd recommend putting a separate file in the `src` directory.
-If the files start with the two lines mentioned above:
+The CRISP-DM framework was used throughout the project for data understanding, preparation, modelling, evaluation, and deployment planning.
 
-	library('ProjectTemplate')
-	load.project()
+---
 
-You'll have access to all of your data, already fully preprocessed, and
-all of the libraries you want to use.
+## Contributor
 
-For more details about ProjectTemplate, see http://projecttemplate.net
+- Deepthi Bolbanda
+
+---
+
+## Repository Structure
+
+- `README.md` → Project documentation
+- `data/` → FutureLearn CSV datasets
+- `munge/` → R preprocessing scripts
+- `config/` → ProjectTemplate configuration files
+- `reports/` → Analysis reports and R Markdown files
+- `GitLog/` → Git repository history log
+
+---
+
+## Technologies Used
+
+- R
+- RStudio
+- ProjectTemplate
+- dplyr
+- ggplot2
+- renv
+
+---
+
+## Execution Instructions
+
+1. Open the `.Rmd` file inside the `reports/` folder.
+2. Run the code chunks or click **Knit** in RStudio.
+3. The final analysis report will be generated automatically.
+
+---
+
+## Key Findings
+
+- Learner drop-off was concentrated at specific early course steps.
+- Engagement significantly decreased after the first video step in many course sections.
+- Certain course steps demonstrated stronger learner retention and engagement patterns.
+- Early-stage interventions may improve overall course completion rates.
