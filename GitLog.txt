@@ -1,0 +1,77 @@
+commit 80ceaaf2b2e084731de62fdfcd8503f9eac30e7d
+Author: Deepthi <bolbandadeepthi@outlook.com>
+Date:   Fri Nov 15 12:58:00 2024 +0000
+
+    Checking the grammatical mistakes and formatting the report
+
+commit e34f231b56cb5ca3bb90db89eb101db408113cd6
+Author: Deepthi <bolbandadeepthi@outlook.com>
+Date:   Fri Nov 15 11:44:49 2024 +0000
+
+    Adding the labels and captions for all the tables and plots
+
+commit ba1fc0c5b2d8d7ab0c892ac7de3e23ed8de90bc5
+Author: Deepthi <bolbandadeepthi@outlook.com>
+Date:   Fri Nov 15 10:58:14 2024 +0000
+
+    Addded the video stats evaluationa and deployment fot the project
+
+commit 572f868a4a12745354de914238f45c6e6e4200d9
+Author: Deepthi <bolbandadeepthi@outlook.com>
+Date:   Fri Nov 15 04:08:13 2024 +0000
+
+    Created two plots and evaluated the density plot
+
+commit 46bfc4e18d425ac6db71a8e22819223f1863fd2a
+Author: Deepthi <bolbandadeepthi@outlook.com>
+Date:   Fri Nov 15 03:27:29 2024 +0000
+
+    Creating two data frames in 02 and 03 munge files. Also added the data prepration description
+
+commit 0a867a3d74255cf0c27f65eb7e02e214d9f5ef3e
+Author: Deepthi <bolbandadeepthi@outlook.com>
+Date:   Fri Nov 15 02:59:46 2024 +0000
+
+    Further devleopment for cycle 2 1) Writing up Business and Data Understanding 2)Creating two munge files
+
+commit 705db4809da9c4ddbab2933932822d00508e3a09
+Author: Deepthi <bolbandadeepthi@outlook.com>
+Date:   Fri Nov 15 02:20:24 2024 +0000
+
+    Model assessment and Evaluation for first cycle
+
+commit 8cd8aa9fb52e688fedeb1a10c3fb7503fa26b535
+Author: Deepthi <bolbandadeepthi@outlook.com>
+Date:   Fri Nov 15 01:46:36 2024 +0000
+
+    Writing up 1)First Investigation question and Data Understanding 2)Choosing the right plot and code for ggplot
+
+commit 92f10d220da4f08091f87bd5bb90358f5442571d
+Author: Deepthi <bolbandadeepthi@outlook.com>
+Date:   Thu Nov 14 18:20:59 2024 +0000
+
+    Combining the leaving responses data set and transforming them
+
+commit 351eae8fe48841007240270ed3a5f445af3a9ca3
+Author: Deepthi <bolbandadeepthi@outlook.com>
+Date:   Thu Nov 14 17:17:21 2024 +0000
+
+    Writing up the Business Understanding
+
+commit 81a3955c270b1601b32afe600186bb3a484f0fec
+Author: Deepthi <bolbandadeepthi@outlook.com>
+Date:   Thu Nov 7 19:16:20 2024 +0000
+
+    Setting Renv and packages
+
+commit 968e8d9ec81eaeaf660905382e1c5be6f883dcda
+Author: Deepthi <bolbandadeepthi@outlook.com>
+Date:   Thu Nov 7 18:57:32 2024 +0000
+
+    Set R Markdown and load data files
+
+commit 1d337f969a9d2b7026714aa0ee5a795e557827e7
+Author: Deepthi <bolbandadeepthi@outlook.com>
+Date:   Thu Nov 7 18:40:22 2024 +0000
+
+    Project Setup

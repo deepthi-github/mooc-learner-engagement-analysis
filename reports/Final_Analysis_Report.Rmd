@@ -1,0 +1,194 @@
+---
+title: "Cyber Security Course Analysis Report"
+author: "Deepthi Bolbanda"
+date: "2024-11-07"
+output: pdf_document
+---
+
+```{r setup, comment= NA, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = normalizePath('..'))
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+library(ProjectTemplate)
+load.project()
+```
+
+# Introduction
+This Analysis report seeks to offer an in-depth analysis of a massive open online course (MOOC) called **Cyber Security: Safety At Home, Online, and in Life** created by *Newcastle University* and released online by online skills provider *FutureLearn*. I have data for 7 runs on how the learners have progressed throughout the course along with some information collected from their profile. This report will be valuable to the course providers within e-learning industry, particularly for large scale education providers and platform developers similar to those included in the data set. The analytical frame work used here is the **Cross Industry Standard process for Data Mining (CRISP-DM)**.
+
+# CRISP-DM Cycle 1
+
+## Business Understanding
+The first phase of the CRISP-DM focuses on the objective and requirements of the project from a business prospect, then translating this knowledge into data mining problem statement. From there, a preliminary strategy is developed to ensure the objectives are met effectively.
+
+### Business Objective
+The objective of this report is to analyze the current state of the Cyber security course, identifying key trends and patterns in learner engagement throughout the course. The insights gained will help inform decisions to enhance course content and delivery, ensuring it meets the needs of current and future enrolls. While the findings will particularly be useful to educators and course designers working on large scale online learning, ultimately helping to optimize the online learning experience and drive higher engagement in cyber security education.
+
+### Primary Research Question
+
+*Lets investigate out first question which is:*
+
+**“How does the number of people un-enrolling vary across the weeks of the course?”**
+
+## Data Understanding
+The second phase includes gathering initial raw data, exploring it to get some familiarity and checking what data is actually useful to meet our objectives. This step is very crucial in getting meaningful and effective results. After collecting the raw data I once again revisited the project goal to make sure I can create valuable insights from the data I have.
+
+### Initial Data Collection
+We have collected data from the 'Cyber Security: Safety At Home, Online, and in Life' course on the FutureLearn platform, covering all 7 course runs conducted over two years (2016-2018).
+
+### Data Description and Exploration
+After collecting the data, the next step is to thoroughly describe and explore it by checking data formats, the number of records, primary keys, and other relevant details. The data I obtained is in CSV format. For the first run, I have 6 datasets; for the second run, there are 7 datasets; and for the remaining 5 runs, each contains 8 datasets. While the columns vary across datasets, the id and learner_id columns remain consistent in most cases. Additionally, for the first two runs, I do not have video statistics datasets
+The raw data sets for each run are:
+
+- **Archetype Survey Responses (all runs)**
+- **Enrollments (all runs)**
+- **Leaving Survey responses (all runs)**
+- **Question Responses (all runs)**
+- **Step Activity (all runs)**
+- **Weekly survey responses (all runs)**
+- **Team members (except 1st run)**
+- **Video Stats (except 1st, 2nd runs)**
+
+In selecting the appropriate dataset for the business objective, I found that using survey responses data from all 7 runs would be more valuable for deriving meaningful insights, rather than focusing on just one run. However, the datasets for the first three runs were empty, so I opted to use data from the later runs.
+The columns in the datasets were in the correct format with clear, understandable names, so I decided to move forward to the data preparation phase and begin preparing the data for analysis.
+
+
+## Data preparation
+Data Preparation is third phase in CRISP-DM model. This involves all the steps to build the final data set by cleaning, transforming and selecting right data to get it ready for the modelling phase. There are many activities we can perform over the data but here mainly we will be removing duplicates, selecting specific columns, transforming and adding new columns.
+
+### Data Cleaning and Wrangling
+In this step, I consolidated and cleaned survey data from four iterations of the cyber security course to create a single dataset. The preprocessing code is contained in the '01-A.R' file. Using the rbind() function, I combined the individual datasets from each course iteration (cyber.security.4_leaving.survey.responses through cyber.security.7_leaving.survey.responses), resulting in a single dataframe, combined_leaving_survey, to work with.
+I removed duplicate entries using the distinct() function to retain only unique records, ensuring that each learner is represented once. The select() function was then used to choose specific columns, allowing focus on only the relevant variables for modeling or analysis in my case, learner_id and last_completed_step. Finally, I applied na.omit() to remove rows with missing values, ensuring the dataset was complete and reliable for further processing. These steps were performed on the combined_leaving_survey dataset to create the final survey_data dataframe, which is well-structured, free from redundancy and missing values, and ready for modeling. Below is the table with first few entries.
+
+```{r, warning=FALSE}
+knitr::kable(head(survey_data), caption = "Un-enrolled learner's completion data")
+
+```
+
+## Modelling
+Modelling is the next phase where we will use the different modelling methods to achieve the desired result. Usually, there are multiple ways to approach a problem and some methods needs the data in a particular format. As as result, I have reviewed the data understanding and preparation stages to make the adjustments.
+
+### Modelling technique
+Selecting the appropriate model to represent the data is crucial, as it directly impacts the effectiveness and accuracy of the results. Upon reviewing the survey_data dataframe, I noticed that it could be effectively visualized using a bar plot in ggplot(), which would allow me to observe the number of people dropping out of the course at various steps.
+
+### Building Model
+ggplot is one of the most valuable libraries for data visualization. For our dataset, I used the ggplot() function with the x-axis representing last_completed_step from the survey_data. The geom_bar() function was used to create a simple bar plot, with the fill argument specifying the color of the bars. geom_bar() automatically counts the number of people unenrolling from the course and displays them as bars on the plot. Although the values are discrete, I used scale_x_binned() to ensure the x-axis is well-adjusted for these steps. Finally, theme_bw() and labs() was applied to give the plot a black-and-white theme and right type of labels, providing a cleaner look that makes it easier to focus on the data.
+
+```{r, fig.cap = "Bar plot for data collected from survey respondents"}
+survey_data|>
+    ggplot(aes(x=last_completed_step))+
+    geom_bar(fill="#2b8cbe")+
+    scale_x_binned()+
+    theme_bw()+
+    labs(
+    title = "Survey Responses by Last Completed Step",
+    x = "Last Completed Step", 
+    y = "Count of Responses"
+  )
+```
+
+### Model Assessment
+From the above bar plot we can observe the how the count is distributed over the course steps and bins are also clearly visible. So I feel this model can be used further for evaluating the business objective.
+
+# Evaluation
+Previously, we assessed the models accuracy. Now in this phase of CRISP-DM the focus shifts to how well the model created aligns with the business goals. From the bar chart representing the distribution of last completed step, we observe a significant concentration of un-enrollment at steps 1.0 and 3.0, with nearly 60 people dropping off at this stages. This suggests that a large proportion of learner's are leaving the course around this particular step, indicating a potential issue or barrier at this point in the course.
+Other steps show relatively lower counts of un-enrollment, especially in the earlier weeks (step 1.8 and 2.4). The pattern of un-enrollment is somewhat skewed, with the bulk of participants un-enrolling after step 1 and 3, pointing to a possible critical stage in the course structure.
+This change in un-enrollment across the course weeks highlights the need for further investigation into the factors influencing drop-off rates at specific points. A more detailed analysis of the step activity and video statistics can provide valuable insights into why learner's may be un enrolling at certain stages of the course.
+
+
+# CRISP-DM Cycle 2
+
+## Business Understanding
+Keeping in mind the main objective of this report I found that there is need for further investigation on the learner's engagement with the course and what can be done to decrease the un-enrollments. This brings us to the our second investigation:
+
+**'Where can changes or interventions be implemented to decrease the un-enrollment rate at key points in the course?'**
+
+Building on the insights from the previous cycle, I now have a clear understanding of where most learners are dropping off. It is important to examine whether this pattern is also observed among those who are still enrolled but have not yet completed the course. Additionally, the video statistics provide valuable insights into learner's behavior at different stages, helping us understand how engagement with course content influences retention.
+
+## Data Understanding
+Although I gained a good understanding of most of the data in the previous cycle, this cycle involves working with different dataframes that I will analyze further. Before proceeding, it's important to note that the step activity data covers all 7 runs, while the video statistics data is available only for the last 5 runs. With this in mind, I will focus on the step activity data from the last 5 runs, rather than all the runs
+
+## Data preparation
+In this cycle, for data understanding, I created two munge files: 02-B.R and 03-C.R. Since we are focusing on step activity to analyze learner engagement throughout the course, I first combined multiple datasets into a single dataframe called combined_step_activity (code in the 02-B.R file). Next, I created a step_activity dataframe from the combined data, retaining columns such as learner_id, step, first_visited_at, and last_completed_at. I used the mutate() function to add a new column, completion_status, which indicates whether a learner completed a step. The if_else() function checks the values in last_completed_at and, if empty, assigns "not completed"; otherwise, it assigns "completed" to the new column. This addition allows for easier analysis of completion status across steps. The group_by(step) function groups the data by the step column, simplifying the process of summarizing data across different steps. This transformed dataframe is then used for modeling.
+
+```{r, warning=FALSE}
+
+temp_step_table<-step_activity|>
+    select(learner_id, completion_status)
+knitr::kable(head(temp_step_table), caption = "Showing the newly added completion status column to the dataframe")
+
+```
+
+
+Similarly, I created the video_stats dataframe, where a new column was added based on mathematical calculations to track the number of people, rather than the percentage. This adjustment makes the data more suitable for further modelling process. The respective table is shown below:
+
+```{r, warning=FALSE}
+
+knitr::kable(head(video_stats), caption = "Showing the total no of people who watched the videos 100%.")
+
+```
+
+
+## Modelling
+As previously said there are many ways to create a plot but understanding the data created and representing it to draw valuable insights is very important. Hence, when I thought of the plotting the step activity I couldn't find more appropriate plot other than density plot as this will be show at what step is is more concentrated. This density plot visualizes the distribution of learners across different steps in a course, divided by completion status (either "completed" or "not completed"). The step variable represents the step number in the course, and the density values along the y-axis show the concentration of learners at each step.
+
+```{r, fig.cap = "Density plot showing the distribution of completion steps by participants in the survey."}
+
+step_activity|>
+    ggplot(aes(x=step,fill = completion_status))+
+    geom_density(alpha=0.3)+
+    theme_bw()+
+      labs(
+    title = "Density of Steps by Completion Status",
+    x = "Step",
+    y = "Density",
+    fill = "Completion Status"
+  )
+
+```
+
+In further investigation we are interested in finding the learner engagement changes across course steps based on video completion rates. By calculating the number of people who viewed each video 100% (number_of_people), we can get a clear measure of how well-engaged the learners are at each course step. So, I have  chosen a geom_col() as it creates a bar chart with each bar height representing the value of total_no_of_people for each step_position. 
+
+```{r, fig.cap =  "This chart shows the total number of people at each step position in the course, helping to visualize user engagement throughout the videos.", warning=FALSE}
+
+video_stats|>
+    ggplot(aes(x=step_position, y=total_no_of_people))+
+    geom_col(fill="#2b8cbe",width = 0.1)+
+    scale_x_continuous(breaks = seq(min(video_stats$step_position), 
+                                    max(video_stats$step_position), by = 0.25))+
+    theme_bw()+
+      labs(
+    title = "Number of People at Each Step in the Course",
+    x = "Step Position",
+    y = "Total Number of People"
+  )
+
+```
+
+
+## Evaluation
+### Density plot
+It provides an understanding of where most learners are dropping off in the course based on the completion status. The density is very high around step 1 for both "completed" and "not completed" categories, which suggests that most learners engage with the course in the beginning. The density is very high around step 1 for both "completed" and "not completed" categories, which suggests that most learners engage with the course in the beginning.
+Early intervention is crucial, as the highest density of dropout occurs immediately after step 1, indicating that improving engagement and retention at the very beginning could have a significant impact on overall completion rates.
+
+### Bar plot
+Based on the video statistics shown in the plot I can conclude that there is a significant decrease in engagement after the first video step for every week. This suggests that many users start the course but do not continue at the same rate. Certain content areas like 1.60 and 2.10 might be engaging due to specific topics covered or the teaching style. Conversely, lower engagement might indicate a need for content revision.
+
+
+## Deployment
+In this last phase of the model, we can develop a deployment strategy to continuously monitor, adapt, and optimize the course experience, ultimately achieving the business goals of reduced un-enrollment and higher course completion. This can be done by implementing targeted changes in content structure, interactive features, and community-building strategies, this can decrease the un-enrollment rate and improve completion rates, aligning better with the business goal of providing a comprehensive and engaging cyber security learning experience. Identify content that sparked increased engagement at steps like 1.60 and 2.10 and consider introducing similar engaging formats, storytelling, or examples in other sections.
+
+## Refrences
+
+**-** CRISP-DM 1.0 Step-by-step data mining guide by
+Pete Chapman (NCR), Julian Clinton (SPSS), Randy Kerber (NCR),
+Thomas Khabaza (SPSS), Thomas Reinartz (DaimlerChrysler),
+Colin Shearer (SPSS) and Rüdiger Wirth (DaimlerChrysler).
+
+**-** Abedjan, Ziawasch, Lukasz Golab, and Felix Naumann. “Profiling
+Relational Data: A Survey.” The VLDB Journal 24.4 (2015): 557–581.
+
+
